@@ -177,12 +177,37 @@ const validateEggEntry = [
   handleValidationErrors
 ];
 
-// Parameter validation
+// Parameter validation - FIXED: More specific validation functions
 const validateObjectId = [
   param('id')
     .isString()
     .isLength({ min: 1 })
     .withMessage('Valid ID is required'),
+  handleValidationErrors
+];
+
+const validateCowId = [
+  param('cowId')
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage('Valid cow ID is required'),
+  handleValidationErrors
+];
+
+const validateFarmLocation = [
+  param('farmLocation')
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage('Valid farm location is required'),
+  handleValidationErrors
+];
+
+// Generic parameter validator factory
+const validateParam = (paramName, message = 'Valid parameter is required') => [
+  param(paramName)
+    .isString()
+    .isLength({ min: 1 })
+    .withMessage(message),
   handleValidationErrors
 ];
 
@@ -195,5 +220,8 @@ module.exports = {
   validateChickenBatch,
   validateEggEntry,
   validateObjectId,
+  validateCowId,
+  validateFarmLocation,
+  validateParam,
   handleValidationErrors
 };

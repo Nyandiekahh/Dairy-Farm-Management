@@ -48,30 +48,30 @@ router.put('/:id', [
 // Delete farm (admin only)
 router.delete('/:id', [requireAdmin, validateObjectId], farmController.deleteFarm);
 
-// Get farm settings
-router.get('/location/:farmLocation/settings', [
+// Get farm settings - FIXED ROUTE
+router.get('/:farmLocation/settings', [
   requireAnyRole,
-  param('farmLocation').isString()
+  param('farmLocation').notEmpty().isString()
 ], farmController.getFarmSettings);
 
-// Update farm settings (admin only)
-router.put('/location/:farmLocation/settings', [
+// Update farm settings (admin only) - FIXED ROUTE
+router.put('/:farmLocation/settings', [
   requireAdmin,
-  param('farmLocation').isString(),
+  param('farmLocation').notEmpty().isString(),
   body('settings').isObject()
 ], farmController.updateFarmSettings);
 
-// Get farm summary
-router.get('/location/:farmLocation/summary', [
+// Get farm summary - FIXED ROUTE
+router.get('/:farmLocation/summary', [
   requireAnyRole,
-  param('farmLocation').isString(),
+  param('farmLocation').notEmpty().isString(),
   query('period').optional().isIn(['daily', 'weekly', 'monthly', 'yearly'])
 ], farmController.getFarmSummary);
 
-// Initialize farm data (admin only)
-router.post('/location/:farmLocation/initialize', [
+// Initialize farm data (admin only) - FIXED ROUTE
+router.post('/:farmLocation/initialize', [
   requireAdmin,
-  param('farmLocation').isString()
+  param('farmLocation').notEmpty().isString()
 ], farmController.initializeFarmData);
 
 module.exports = router;
