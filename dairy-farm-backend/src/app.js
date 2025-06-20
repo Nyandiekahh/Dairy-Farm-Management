@@ -19,17 +19,6 @@ const healthRoutes = require('./routes/health');
 const chickenRoutes = require('./routes/chicken');
 const statsRoutes = require('./routes/stats');
 
-// Debug: Check which routes are undefined
-console.log('authRoutes:', authRoutes);
-console.log('userRoutes:', userRoutes);
-console.log('farmRoutes:', farmRoutes);
-console.log('cowRoutes:', cowRoutes);
-console.log('milkRoutes:', milkRoutes);
-console.log('feedRoutes:', feedRoutes);
-console.log('healthRoutes:', healthRoutes);
-console.log('chickenRoutes:', chickenRoutes);
-console.log('statsRoutes:', statsRoutes);
-
 const app = express();
 
 // Security middleware
@@ -82,53 +71,19 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes with debugging - Register one by one to find the problematic route
-try {
-  console.log('🔄 Registering auth routes...');
-  app.use('/api/auth', authRoutes);
-  console.log('✅ Auth routes registered successfully');
-  
-  console.log('🔄 Registering user routes...');
-  app.use('/api/users', userRoutes);
-  console.log('✅ User routes registered successfully');
-  
-  console.log('🔄 Registering farm routes...');
-  app.use('/api/farms', farmRoutes);
-  console.log('✅ Farm routes registered successfully');
-  
-  console.log('🔄 Registering cow routes...');
-  app.use('/api/cows', cowRoutes);
-  console.log('✅ Cow routes registered successfully');
-  
-  console.log('🔄 Registering milk routes...');
-  app.use('/api/milk', milkRoutes);
-  console.log('✅ Milk routes registered successfully');
-  
-  console.log('🔄 Registering feed routes...');
-  app.use('/api/feeds', feedRoutes);
-  console.log('✅ Feed routes registered successfully');
-  
-  console.log('🔄 Registering health routes...');
-  app.use('/api/health', healthRoutes);
-  console.log('✅ Health routes registered successfully');
-  
-  console.log('🔄 Registering chicken routes...');
-  app.use('/api/chicken', chickenRoutes);
-  console.log('✅ Chicken routes registered successfully');
-  
-  console.log('🔄 Registering stats routes...');
-  app.use('/api/stats', statsRoutes);
-  console.log('✅ Stats routes registered successfully');
-  
-  console.log('🎉 All routes registered successfully!');
-  
-} catch (error) {
-  console.error('❌ Error registering routes:', error);
-  console.error('Stack trace:', error.stack);
-}
+// API routes
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/farms', farmRoutes);
+app.use('/api/cows', cowRoutes);
+app.use('/api/milk', milkRoutes);
+app.use('/api/feeds', feedRoutes);
+app.use('/api/health', healthRoutes);
+app.use('/api/chicken', chickenRoutes);
+app.use('/api/stats', statsRoutes);
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use((req, res, next) => {
   res.status(404).json({
     success: false,
     error: 'Route not found',

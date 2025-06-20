@@ -1,4 +1,5 @@
 const firebaseService = require('../services/firebaseService');
+const { auth } = require('../config/firebase'); // ADD THIS LINE
 const { HTTP_STATUS, ERROR_MESSAGES, USER_ROLES, COLLECTIONS } = require('../utils/constants');
 const { sanitizeInput, paginate } = require('../utils/helpers');
 
