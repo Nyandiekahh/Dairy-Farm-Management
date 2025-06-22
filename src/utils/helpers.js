@@ -187,7 +187,6 @@ export const buildQueryString = (params) => {
   return searchParams.toString();
 };
 
-
 export const parseQueryString = (queryString) => {
   const params = new URLSearchParams(queryString);
   const result = {};

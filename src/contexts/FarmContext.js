@@ -125,6 +125,100 @@ export const FarmProvider = ({ children }) => {
       
       if (response.success) {
         dispatch({
+          type: FARM_ACTIONS.SET_FARMS,
+          payload: response.data,
+        });
+        
+        return response;
+      } else {
+        throw new Error(response.error || 'Failed to load farms');
+      }
+    } catch (error) {
+      console.error('Load farms error:', error);
+      dispatch({
+        type: FARM_ACTIONS.SET_ERROR,
+        payload: error.message || 'Failed to load farms',
+      });
+      throw error;
+    }
+  };
+
+  // Select farm
+  const selectFarm = (farmLocation) => {
+    dispatch({
+      type: FARM_ACTIONS.SET_SELECTED_FARM,
+      payload: farmLocation,
+    });
+    
+    // Store selection for admins
+    if (!isFarmer()) {
+      setToStorage(STORAGE_KEYS.SELECTED_FARM, farmLocation);
+    }
+    
+    // Load farm data
+    loadFarmSettings(farmLocation);
+    loadFarmSummary(farmLocation);
+  };
+
+  // Load farm settings
+  const loadFarmSettings = async (farmLocation) => {
+    try {
+      const response = await farmsAPI.getSettings(farmLocation);
+      
+      if (response.success) {
+        dispatch({
+          type: FARM_ACTIONS.SET_FARM_SETTINGS,
+          payload: response.data,
+        });
+        
+        return response;
+      } else {
+        throw new Error(response.error || 'Failed to load farm settings');
+      }
+    } catch (error) {
+      console.error('Load farm settings error:', error);
+      dispatch({
+        type: FARM_ACTIONS.SET_ERROR,
+        payload: error.message || 'Failed to load farm settings',
+      });
+      throw error;
+    }
+  };
+
+  // Load farm summary
+  const loadFarmSummary = async (farmLocation, params = {}) => {
+    try {
+      const response = await farmsAPI.getSummary(farmLocation, params);
+      
+      if (response.success) {
+        dispatch({
+          type: FARM_ACTIONS.SET_FARM_SUMMARY,
+          payload: response.data,
+        });
+        
+        return response;
+      } else {
+        throw new Error(response.error || 'Failed to load farm summary');
+      }
+    } catch (error) {
+      console.error('Load farm summary error:', error);
+      dispatch({
+        type: FARM_ACTIONS.SET_ERROR,
+        payload: error.message || 'Failed to load farm summary',
+      });
+      throw error;
+    }
+  };
+
+  // Update farm settings
+  const updateFarmSettings = async (farmLocation, settings) => {
+    try {
+      dispatch({ type: FARM_ACTIONS.SET_LOADING, payload: true });
+      
+      const response = await farmsAPI.updateSettings(farmLocation, settings);
+      
+      if (response.success) {
+        dispatch({
           type: FARM_ACTIONS.SET_FARM_SETTINGS,
           payload: response.data.settings,
         });
