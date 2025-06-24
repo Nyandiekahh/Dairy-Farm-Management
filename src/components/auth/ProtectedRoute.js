@@ -9,7 +9,7 @@ const ProtectedRoute = ({
   requireFarmer = false,
   requirePermission = null 
 }) => {
-  const { isAuthenticated, isLoading, user, isAdmin, isFarmer, hasPermission } = useAuth();
+  const { isAuthenticated, isLoading, isAdmin, isFarmer, hasPermission } = useAuth();
   const location = useLocation();
 
   // Show loading spinner while authentication is being checked

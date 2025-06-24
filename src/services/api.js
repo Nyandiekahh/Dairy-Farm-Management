@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL, API_TIMEOUT, STORAGE_KEYS } from '../utils/constants';
-import { getFromStorage, removeFromStorage, handleApiError } from '../utils/helpers';
+import { getFromStorage, removeFromStorage } from '../utils/helpers';
 
 // Create axios instance
 const api = axios.create({

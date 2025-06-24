@@ -3,7 +3,6 @@ import React from 'react';
 import { Plus, FileText, BarChart } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../contexts/ThemeContext';
-import Button from '../common/Button';
 
 const QuickActions = () => {
   const { hasPermission } = useAuth();

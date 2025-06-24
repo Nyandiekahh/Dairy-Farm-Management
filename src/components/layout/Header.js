@@ -4,7 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useFarm } from '../../contexts/FarmContext';
 import { formatFarmName } from '../../utils/formatters';
-import Button from '../common/Button';
 
 const Header = () => {
   const { user, logout, isAdmin } = useAuth();
