@@ -332,7 +332,7 @@ textarea:focus {
 
 /* Loading spinner */
 .spinner {
-  @apply inline-block w-4 h-4 border-2 border-gray-300 border-t-primary rounded-full;
+  @apply inline-block w-4 h-4 border-2 border-gray-300 border-t-green-600 rounded-full;
   animation: spin 1s linear infinite;
 }
 
